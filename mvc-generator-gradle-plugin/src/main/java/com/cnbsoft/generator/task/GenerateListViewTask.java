@@ -1,10 +1,10 @@
-package com.cnbsoft.plugin.generator.task;
+package com.cnbsoft.generator.task;
 
-import com.cnbsoft.plugin.generator.engine.ColumnInspector;
-import com.cnbsoft.plugin.generator.engine.GeneratorConfig;
-import com.cnbsoft.plugin.generator.engine.TemplateEngine;
-import com.cnbsoft.plugin.generator.engine.generators.ViewCodeGenerator;
-import com.cnbsoft.plugin.generator.plugin.MvcGeneratorBaseTask;
+import com.cnbsoft.generator.engine.ColumnInspector;
+import com.cnbsoft.generator.engine.GeneratorConfig;
+import com.cnbsoft.generator.engine.TemplateEngine;
+import com.cnbsoft.generator.engine.generators.ViewCodeGenerator;
+import com.cnbsoft.generator.plugin.MvcGeneratorBaseTask;
 
 public abstract class GenerateListViewTask extends MvcGeneratorBaseTask {
     @Override

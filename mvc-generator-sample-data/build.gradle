@@ -14,7 +14,8 @@ dependencies {
     liquibase 'org.liquibase:liquibase-core:4.30.0'
     liquibase 'info.picocli:picocli:4.7.6'
     liquibase 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
-    liquibase 'com.mysql:mysql-connector-j:9.1.0'
+//    liquibase 'com.mysql:mysql-connector-j:9.1.0'
+//    liquibase 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
 }
 
 def dbUrl = providers.gradleProperty('dbUrl').getOrElse('jdbc:oracle:thin:@localhost:1521/xe')

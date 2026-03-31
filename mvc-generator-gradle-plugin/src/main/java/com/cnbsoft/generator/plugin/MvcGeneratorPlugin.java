@@ -1,6 +1,6 @@
-package com.cnbsoft.plugin.generator.plugin;
+package com.cnbsoft.generator.plugin;
 
-import com.cnbsoft.plugin.generator.task.*;
+import com.cnbsoft.generator.task.*;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;

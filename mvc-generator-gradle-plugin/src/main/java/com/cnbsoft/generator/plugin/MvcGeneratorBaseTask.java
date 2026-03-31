@@ -1,8 +1,8 @@
-package com.cnbsoft.plugin.generator.plugin;
+package com.cnbsoft.generator.plugin;
 
-import com.cnbsoft.plugin.generator.engine.ColumnInspector;
-import com.cnbsoft.plugin.generator.engine.GeneratorConfig;
-import com.cnbsoft.plugin.generator.engine.TemplateEngine;
+import com.cnbsoft.generator.engine.ColumnInspector;
+import com.cnbsoft.generator.engine.GeneratorConfig;
+import com.cnbsoft.generator.engine.TemplateEngine;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.ConfigurableFileCollection;

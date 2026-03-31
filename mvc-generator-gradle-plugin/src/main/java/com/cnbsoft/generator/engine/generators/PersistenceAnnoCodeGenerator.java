@@ -1,9 +1,9 @@
-package com.cnbsoft.plugin.generator.engine.generators;
+package com.cnbsoft.generator.engine.generators;
 
-import com.cnbsoft.plugin.generator.engine.ColumnInspector;
-import com.cnbsoft.plugin.generator.engine.GeneratorConfig;
-import com.cnbsoft.plugin.generator.engine.PathResolver;
-import com.cnbsoft.plugin.generator.engine.TemplateEngine;
+import com.cnbsoft.generator.engine.ColumnInspector;
+import com.cnbsoft.generator.engine.GeneratorConfig;
+import com.cnbsoft.generator.engine.PathResolver;
+import com.cnbsoft.generator.engine.TemplateEngine;
 import com.cnbsoft.plugin.generator.util.StringUtil;
 import com.cnbsoft.plugin.generator.vo.ColumnInfo;
 import com.cnbsoft.plugin.generator.vo.PrimaryInfo;

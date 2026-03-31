@@ -1,13 +1,13 @@
-package com.cnbsoft.plugin.generator.task;
+package com.cnbsoft.generator.task;
 
-import com.cnbsoft.plugin.generator.engine.ColumnInspector;
-import com.cnbsoft.plugin.generator.engine.GeneratorConfig;
-import com.cnbsoft.plugin.generator.engine.TemplateEngine;
-import com.cnbsoft.plugin.generator.engine.generators.*;
+import com.cnbsoft.generator.engine.ColumnInspector;
+import com.cnbsoft.generator.engine.GeneratorConfig;
+import com.cnbsoft.generator.engine.TemplateEngine;
+import com.cnbsoft.generator.engine.generators.*;
 import com.cnbsoft.plugin.generator.interactive.GenerationType;
 import com.cnbsoft.plugin.generator.interactive.TableSelector;
-import com.cnbsoft.plugin.generator.plugin.MvcGeneratorBaseTask;
-import com.cnbsoft.plugin.generator.plugin.MvcGeneratorExtension;
+import com.cnbsoft.generator.plugin.MvcGeneratorBaseTask;
+import com.cnbsoft.generator.plugin.MvcGeneratorExtension;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.ConfigurableFileCollection;

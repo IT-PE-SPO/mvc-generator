@@ -1,4 +1,4 @@
-package com.cnbsoft.plugin.generator.plugin;
+package com.cnbsoft.generator.plugin;
 
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.model.ObjectFactory;

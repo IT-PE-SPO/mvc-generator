@@ -1,4 +1,4 @@
-package com.cnbsoft.plugin.generator.engine;
+package com.cnbsoft.generator.engine;
 
 import java.io.File;
 import java.util.List;

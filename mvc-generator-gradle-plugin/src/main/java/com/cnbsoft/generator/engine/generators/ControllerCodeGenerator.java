@@ -1,9 +1,9 @@
-package com.cnbsoft.plugin.generator.engine.generators;
+package com.cnbsoft.generator.engine.generators;
 
-import com.cnbsoft.plugin.generator.engine.ColumnInspector;
-import com.cnbsoft.plugin.generator.engine.GeneratorConfig;
-import com.cnbsoft.plugin.generator.engine.PathResolver;
-import com.cnbsoft.plugin.generator.engine.TemplateEngine;
+import com.cnbsoft.generator.engine.ColumnInspector;
+import com.cnbsoft.generator.engine.GeneratorConfig;
+import com.cnbsoft.generator.engine.PathResolver;
+import com.cnbsoft.generator.engine.TemplateEngine;
 import com.cnbsoft.plugin.generator.util.StringUtil;
 import com.cnbsoft.plugin.generator.vo.ColumnInfo;
 import com.cnbsoft.plugin.generator.vo.PrimaryInfo;
@@ -13,13 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PersistenceCodeGenerator {
+public class ControllerCodeGenerator {
 
     private final GeneratorConfig config;
     private final ColumnInspector inspector;
     private final TemplateEngine engine;
 
-    public PersistenceCodeGenerator(GeneratorConfig config, ColumnInspector inspector, TemplateEngine engine) {
+    public ControllerCodeGenerator(GeneratorConfig config, ColumnInspector inspector, TemplateEngine engine) {
         this.config = config;
         this.inspector = inspector;
         this.engine = engine;
@@ -36,12 +36,13 @@ public class PersistenceCodeGenerator {
         model.put("modelName", StringUtil.tableNameToJavaName(tableName).toLowerCase());
         model.put("packagePath", config.basePackage);
         model.put("modelPath", config.modelPath);
+        model.put("controllerPath", config.controllerPath);
         model.put("servicePath", config.servicePath);
         model.put("persistencePath", config.persistencePath);
         model.put("implPath", config.implPath);
+        model.put("controllerType", config.controllerType);
 
-        // Mapper 인터페이스만 생성 (기존 코드와 동일 - impl은 주석처리된 상태)
-        File outFile = PathResolver.persistenceFile(config, tableName);
-        engine.generateFile(outFile, config.tplPersistence, model);
+        File outFile = PathResolver.controllerFile(config, tableName);
+        engine.generateFile(outFile, config.tplController, model);
     }
 }

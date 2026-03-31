@@ -1,9 +1,9 @@
-package com.cnbsoft.plugin.generator.engine.generators;
+package com.cnbsoft.generator.engine.generators;
 
-import com.cnbsoft.plugin.generator.engine.ColumnInspector;
-import com.cnbsoft.plugin.generator.engine.GeneratorConfig;
-import com.cnbsoft.plugin.generator.engine.PathResolver;
-import com.cnbsoft.plugin.generator.engine.TemplateEngine;
+import com.cnbsoft.generator.engine.ColumnInspector;
+import com.cnbsoft.generator.engine.GeneratorConfig;
+import com.cnbsoft.generator.engine.PathResolver;
+import com.cnbsoft.generator.engine.TemplateEngine;
 import com.cnbsoft.plugin.generator.util.StringUtil;
 import com.cnbsoft.plugin.generator.vo.ColumnInfo;
 import com.cnbsoft.plugin.generator.vo.PrimaryInfo;
@@ -13,21 +13,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ViewCodeGenerator {
-
-    public enum ViewType { FORM, GET, LIST }
+public class QueryCodeGenerator {
 
     private final GeneratorConfig config;
     private final ColumnInspector inspector;
     private final TemplateEngine engine;
 
-    public ViewCodeGenerator(GeneratorConfig config, ColumnInspector inspector, TemplateEngine engine) {
+    public QueryCodeGenerator(GeneratorConfig config, ColumnInspector inspector, TemplateEngine engine) {
         this.config = config;
         this.inspector = inspector;
         this.engine = engine;
     }
 
-    public void generate(String tableName, ViewType type) throws Exception {
+    public void generate(String tableName) throws Exception {
         List<ColumnInfo> columns = inspector.getColumnInfos(tableName);
         List<PrimaryInfo> primaryInfos = inspector.getPrimaryInfo(tableName);
 
@@ -42,17 +40,7 @@ public class ViewCodeGenerator {
         model.put("persistencePath", config.persistencePath);
         model.put("implPath", config.implPath);
 
-        String templateName = resolveTemplateName(type);
-        File outFile = PathResolver.viewFile(config, tableName, templateName);
-        engine.generateFile(outFile, templateName, model);
-    }
-
-    private String resolveTemplateName(ViewType type) {
-        switch (type) {
-            case FORM: return config.tplForm;
-            case GET:  return config.tplGet;
-            case LIST: return config.tplList;
-            default:   throw new IllegalArgumentException("Unknown ViewType: " + type);
-        }
+        File outFile = PathResolver.queryXmlFile(config, tableName);
+        engine.generateFile(outFile, config.tplQuery, model);
     }
 }

@@ -1,4 +1,4 @@
-package com.cnbsoft.plugin.generator.engine;
+package com.cnbsoft.generator.engine;
 
 import com.cnbsoft.plugin.generator.vo.ColumnInfo;
 import com.cnbsoft.plugin.generator.vo.PrimaryInfo;
