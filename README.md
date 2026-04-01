@@ -295,18 +295,6 @@ cd mvc-generator-gradle-plugin
 ```bash
 cd mvc-generator-test-app
 
-# 전체 코드 일괄 생성
-./gradlew generateMvc
-
-# 또는 계층별 개별 생성
-./gradlew generateMvcModel          # Model (VO)
-./gradlew generateMvcController     # Controller
-./gradlew generateMvcService        # Service + ServiceImpl
-./gradlew generateMvcPersistence    # MyBatis Mapper Interface
-./gradlew generateMvcFormView       # 입력 폼 뷰
-./gradlew generateMvcGetView        # 상세 뷰
-./gradlew generateMvcListView       # 목록 뷰
-
 # 대화형 모드 (테이블/생성 유형 선택)
 ./gradlew generate --no-daemon --console=plain
 ```
