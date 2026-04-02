@@ -7,6 +7,7 @@ buildscript {
 plugins {
     id 'java'
     id 'com.cnbsoft.mvc-generator' version '1.0.0'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.cnbsoft.sample'
@@ -66,12 +67,19 @@ mvcGenerator {
     // customTemplateDir = file("src/main/mvcgen/templates")
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:4.0.5"
+    }
+}
+
 // ── JDBC 드라이버 등록 ──────────────────────────────────────
 dependencies {
     mvcGeneratorJdbc 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
     implementation 'org.mybatis:mybatis:3.5.16'
-    implementation "org.springframework:spring-context:${springBootVersion}"
-    implementation "org.springframework:spring-webmvc:${springBootVersion}"
+    implementation "org.springframework:spring-context"
+    implementation "org.springframework:spring-webmvc"
+    implementation "org.springframework:spring-annotation"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.1"
 }
 

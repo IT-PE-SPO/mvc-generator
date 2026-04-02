@@ -1,33 +1,9 @@
-package com.cnbsoft.plugin.generator.util;
-
-import java.util.Arrays;
-import java.util.List;
+package com.cnbsoft.generator.util;
 
 public class StringUtil {
 
-    public static String convertColumnIntoProp(String source) {
-        if (source == null || source.indexOf("_") == -1) {
-            if (source.equals(source.toUpperCase())) {
-                return source.toLowerCase();
-            } else {
-                return source;
-            }
-        }
-        StringBuilder buffer = new StringBuilder();
-        source = source.toLowerCase();
-        String[] tempArr = source.split("_", -1);
-        for (int i = 0; i < tempArr.length; i++) {
-            if (i == 0) {
-                buffer.append(tempArr[i]);
-            } else {
-                buffer.append(capitalize(tempArr[i]));
-            }
-        }
-        return buffer.toString();
-    }
-
     public static String capitalize(String str) {
-        if (str == null || str.length() == 0) {
+        if (str == null || str.isEmpty()) {
             return str;
         }
         return Character.toTitleCase(str.charAt(0)) +
@@ -35,7 +11,7 @@ public class StringUtil {
     }
 
     public static String toTitleCase(String str) {
-        String[] strs = str.replaceAll("_", " ").split(" ");
+        String[] strs = str.replace("_", " ").split(" ");
         StringBuilder buffer = new StringBuilder();
         for (String s : strs) {
             buffer.append(Character.toTitleCase(s.charAt(0)))

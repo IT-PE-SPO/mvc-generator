@@ -1,4 +1,4 @@
-package com.cnbsoft.plugin.generator.vo;
+package com.cnbsoft.generator.vo;
 
 import java.io.Serializable;
 
