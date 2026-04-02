@@ -30,14 +30,12 @@ public class StringUtil {
         if (str == null || str.length() == 0) {
             return str;
         }
-        return new StringBuilder(str.length())
-                .append(Character.toTitleCase(str.charAt(0)))
-                .append(str.substring(1))
-                .toString();
+        return Character.toTitleCase(str.charAt(0)) +
+                str.substring(1);
     }
 
     public static String toTitleCase(String str) {
-        List<String> strs = Arrays.asList(str.replaceAll("_", " ").split(" "));
+        String[] strs = str.replaceAll("_", " ").split(" ");
         StringBuilder buffer = new StringBuilder();
         for (String s : strs) {
             buffer.append(Character.toTitleCase(s.charAt(0)))

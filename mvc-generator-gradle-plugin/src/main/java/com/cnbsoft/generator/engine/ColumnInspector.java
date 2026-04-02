@@ -192,18 +192,43 @@ public class ColumnInspector implements Closeable {
     }
 
     // ────────────────────────────────────────────────────────────────
-    // DriverShim: 격리된 ClassLoader의 Driver를 DriverManager에 위임
-    // ────────────────────────────────────────────────────────────────
-    private static final class DriverShim implements Driver {
-        private final Driver delegate;
-        DriverShim(Driver d) { this.delegate = d; }
+        // DriverShim: 격리된 ClassLoader의 Driver를 DriverManager에 위임
+        // ────────────────────────────────────────────────────────────────
+        private record DriverShim(Driver delegate) implements Driver {
 
-        @Override public Connection connect(String url, Properties info) throws SQLException { return delegate.connect(url, info); }
-        @Override public boolean acceptsURL(String url) throws SQLException { return delegate.acceptsURL(url); }
-        @Override public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException { return delegate.getPropertyInfo(url, info); }
-        @Override public int getMajorVersion() { return delegate.getMajorVersion(); }
-        @Override public int getMinorVersion() { return delegate.getMinorVersion(); }
-        @Override public boolean jdbcCompliant() { return delegate.jdbcCompliant(); }
-        @Override public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException { return delegate.getParentLogger(); }
-    }
+        @Override
+        public Connection connect(String url, Properties info) throws SQLException {
+            return delegate.connect(url, info);
+        }
+
+        @Override
+        public boolean acceptsURL(String url) throws SQLException {
+            return delegate.acceptsURL(url);
+        }
+
+        @Override
+        public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
+            return delegate.getPropertyInfo(url, info);
+        }
+
+        @Override
+        public int getMajorVersion() {
+            return delegate.getMajorVersion();
+        }
+
+        @Override
+        public int getMinorVersion() {
+            return delegate.getMinorVersion();
+        }
+
+        @Override
+        public boolean jdbcCompliant() {
+            return delegate.jdbcCompliant();
+        }
+
+        @Override
+        public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+            return delegate.getParentLogger();
+        }
+        }
 }

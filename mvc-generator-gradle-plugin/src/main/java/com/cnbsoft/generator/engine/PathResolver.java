@@ -60,7 +60,7 @@ public class PathResolver {
     // ── 뷰 파일 ─────────────────────────────────────────────────────
 
     public static File viewFile(GeneratorConfig cfg, String tableName, String templateName) {
-        String dirName = tableName.toLowerCase().replaceAll("_", "");
+        String dirName = tableName.toLowerCase().replace("_", "");
         return new File(cfg.viewOutputDir,
                 cfg.webAppPath
                 + File.separator + join(cfg.viewPath)

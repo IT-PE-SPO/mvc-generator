@@ -2,6 +2,7 @@ package com.cnbsoft.generator.interactive;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -14,7 +15,7 @@ public class TableSelector {
     private final PrintStream out;
 
     public TableSelector(InputStream in, PrintStream out) {
-        this.scanner = new Scanner(in, "UTF-8");
+        this.scanner = new Scanner(in, StandardCharsets.UTF_8);
         this.out     = out;
     }
 
