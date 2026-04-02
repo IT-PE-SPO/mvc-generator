@@ -1,7 +1,7 @@
 package com.cnbsoft.generator.engine;
 
-import com.cnbsoft.plugin.generator.vo.ColumnInfo;
-import com.cnbsoft.plugin.generator.vo.PrimaryInfo;
+import com.cnbsoft.generator.vo.ColumnInfo;
+import com.cnbsoft.generator.vo.PrimaryInfo;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * DB 테이블 메타데이터를 JDBC로 추출한다.
  * Spring 의존 없음. JDBC 드라이버는 격리된 ClassLoader에서 반사적으로 로드한다.
- *
+
  * 기존 ColumnHelperImpl 의 핵심 JDBC 로직을 보존하되,
  * static 캐시 → 인스턴스 레벨 Map 으로 변경하여 다중 테이블 생성 시 캐시 오염 방지.
  */
@@ -174,36 +174,53 @@ public class ColumnInspector implements Closeable {
     // (예: oracle.sql.TIMESTAMP → java.sql.Timestamp)
     // ────────────────────────────────────────────────────────────────
     private static String normalizeClassName(String rawClassName, int jdbcType, int scale) {
-        switch (jdbcType) {
-            case Types.NUMERIC:
-            case Types.DECIMAL:
-                return scale == 0 ? "java.lang.Long" : "java.lang.Double";
-            case Types.TIMESTAMP:
-            case Types.TIMESTAMP_WITH_TIMEZONE:
-                return "java.sql.Timestamp";
-            case Types.DATE:
-                return "java.sql.Date";
-            case Types.TIME:
-            case Types.TIME_WITH_TIMEZONE:
-                return "java.sql.Time";
-            default:
-                return rawClassName;
+        return switch (jdbcType) {
+            case Types.NUMERIC, Types.DECIMAL -> scale == 0 ? "java.lang.Long" : "java.lang.Double";
+            case Types.TIMESTAMP, Types.TIMESTAMP_WITH_TIMEZONE -> "java.sql.Timestamp";
+            case Types.DATE -> "java.sql.Date";
+            case Types.TIME, Types.TIME_WITH_TIMEZONE -> "java.sql.Time";
+            default -> rawClassName;
+        };
+    }
+
+    // ────────────────────────────────────────────────────────────────
+        // DriverShim: 격리된 ClassLoader의 Driver를 DriverManager에 위임
+        // ────────────────────────────────────────────────────────────────
+        private record DriverShim(Driver delegate) implements Driver {
+
+        @Override
+        public Connection connect(String url, Properties info) throws SQLException {
+            return delegate.connect(url, info);
         }
-    }
 
-    // ────────────────────────────────────────────────────────────────
-    // DriverShim: 격리된 ClassLoader의 Driver를 DriverManager에 위임
-    // ────────────────────────────────────────────────────────────────
-    private static final class DriverShim implements Driver {
-        private final Driver delegate;
-        DriverShim(Driver d) { this.delegate = d; }
+        @Override
+        public boolean acceptsURL(String url) throws SQLException {
+            return delegate.acceptsURL(url);
+        }
 
-        @Override public Connection connect(String url, Properties info) throws SQLException { return delegate.connect(url, info); }
-        @Override public boolean acceptsURL(String url) throws SQLException { return delegate.acceptsURL(url); }
-        @Override public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException { return delegate.getPropertyInfo(url, info); }
-        @Override public int getMajorVersion() { return delegate.getMajorVersion(); }
-        @Override public int getMinorVersion() { return delegate.getMinorVersion(); }
-        @Override public boolean jdbcCompliant() { return delegate.jdbcCompliant(); }
-        @Override public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException { return delegate.getParentLogger(); }
-    }
+        @Override
+        public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
+            return delegate.getPropertyInfo(url, info);
+        }
+
+        @Override
+        public int getMajorVersion() {
+            return delegate.getMajorVersion();
+        }
+
+        @Override
+        public int getMinorVersion() {
+            return delegate.getMinorVersion();
+        }
+
+        @Override
+        public boolean jdbcCompliant() {
+            return delegate.jdbcCompliant();
+        }
+
+        @Override
+        public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+            return delegate.getParentLogger();
+        }
+        }
 }
